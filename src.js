@@ -1,52 +1,60 @@
-const calcularPorcentajes = (limiteCO, limiteCO2, limiteHC, limiteO2, valorCO, valorCO2, valorHC, valorO2) => { 
+const calcularPocentajes = (limiteCO, limiteCO2, limiteHC, limiteO2, valorCO, valorCO2, valorHC, valorO2) => { 
 
     let porcentajeCO = limiteCO ?  + (valorCO * 100 / limiteCO).toFixed(2) : 0;
     let porcentajeCO2 = limiteCO2 ? + (valorCO2 * 100 / limiteCO2).toFixed(2) : 0;
     let porcentajeHC = limiteHC ?  + (valorHC * 100 / limiteHC).toFixed(2) : 0;
     let porcentajeO2 = limiteO2 ?  + (valorO2 * 100 / limiteO2).toFixed(2) : 0;
     
-    return {porcentajeCO: porcentajeCO + '%', porcentajeCO2: porcentajeCO2 + '%', porcentajeHC: porcentajeHC + '%', porcentajeO2: porcentajeO2 + '%'};
+    return {porcentajeCO: porcentajeCO, porcentajeCO2: porcentajeCO2, porcentajeHC: porcentajeHC, porcentajeO2: porcentajeO2};
     //return {porcentajeCO: `${porcentajeCO}%`, porcentajeCO2: `${porcentajeCO2}%`, porcentajeHC: `${porcentajeHC}%`, porcentajeO2: `${porcentajeO2}%`};
 }
 
 const registrarCO = (value) => {
-    /*let verificacionRangoCO;
-    rangosCO.forEach(element => {
+    let indiceRangosCO = -1;
+    rangosCO.forEach((element, indexElement) => {
         if(value >= element.de && value <= element.hasta){
-            verificacionRangoCO = element.etiqueta;
+           indiceRangosCO = indexElement;
         }
-    });*/
-    return value >= rangosCO[0].de ? value <= rangosCO[0].hasta ? rangosCO[0].etiqueta : rangosCO[1].etiqueta : 'fuera_de_rango';
+    });
+    
+    //return value >= rangosCO[0].de ? value<=rangosCO[0].hasta? rangosCO[0].etiqueta: rangosCO[1].etiqueta : 'fuera_de_rango';
+    return indiceRangosCO === -1 ? 'fuera_de_rango' : rangosCO[indiceRangosCO].etiqueta ;
 }  
 
 const registrarCO2 = (value) => {
-    /*let verificacionRangoCO2;
-    rangosCO2.forEach(element => {  
-        if(value >= element.de && value <= element.hasta){ 
-            verificacionRangoCO2 = element.etiqueta;
+    let indiceRangosCO2 = -1;
+    rangosCO2.forEach((element, indexElement) => {
+        if(value >= element.de && value <= element.hasta){
+           indiceRangosCO2 = indexElement;
         }
-    });*/
-    return value >= rangosCO2[0].de ? value<=rangosCO2[0].hasta? rangosCO2[0].etiqueta: rangosCO2[1].etiqueta : 'fuera_de_rango';                                                         
+    });
+
+    //return value >= rangosCO2[0].de ? value<=rangosCO2[0].hasta? rangosCO2[0].etiqueta: rangosCO2[1].etiqueta : 'fuera_de_rango';
+    return indiceRangosCO2 === -1 ? 'fuera_de_rango' : rangosCO2[indiceRangosCO2].etiqueta ;
 }
 
 const registrarHC= (value) => {
-    /*let verificacionRangoHC;
-    rangosHC.forEach(element => {
+    let indiceRangosHC = -1;
+    rangosHC.forEach((element, indexElement) => {
         if(value >= element.de && value <= element.hasta){
-            verificacionRangoHC = element.etiqueta;
+           indiceRangosHC = indexElement;
         }
-    });*/
-    return value >= rangosHC[0].de ? value<=rangosHC[0].hasta? rangosHC[0].etiqueta: rangosHC[1].etiqueta : 'fuera_de_rango';
+    });
+
+    //return value >= rangosHC[0].de ? value<=rangosHC[0].hasta? rangosHC[0].etiqueta: rangosHC[1].etiqueta : 'fuera_de_rango';
+    return indiceRangosHC === -1 ? 'fuera_de_rango' : rangosHC[indiceRangosHC].etiqueta ;
 }
 
 const registrarO2 = (value) => { 
-    /*let verificacionRangoO2;
-    rangosO2.forEach(element => {
+    let indiceRangosO2 = -1;
+    rangosO2.forEach((element, indexElement) => {
         if(value >= element.de && value <= element.hasta){
-            verificacionRangoO2 = element.etiqueta;
+           indiceRangosO2 = indexElement;
         }
-    });*/
-    return value >= rangosO2[0].de ? value<=rangosO2[0].hasta? rangosO2[0].etiqueta: rangosO2[1].etiqueta : 'fuera_de_rango';  
+    });
+
+    //return value >= rangosO2[0].de ? value<=rangosO2[0].hasta? rangosO2[0].etiqueta: rangosO2[1].etiqueta : 'fuera_de_rango';
+    return indiceRangosO2 === -1 ? 'fuera_de_rango' : rangosO2[indiceRangosO2].etiqueta ;
 }
 
 global.rangosCO = [
@@ -69,16 +77,16 @@ global.rangosO2 = [
     {etiqueta:'Parametro O2 fuera de rango', de: 23, hasta: 30},
 ]
 
-module.exports.calcularPorcentajes = calcularPorcentajes;
+module.exports.calcularPocentajes = calcularPocentajes;
 module.exports.registrarCO = registrarCO;
 module.exports.registrarCO2 = registrarCO2;
 module.exports.registrarHC = registrarHC;
 module.exports.registrarO2 = registrarO2;
 
 // Language: javascript
-/*console.log(calcularPorcentajes(10, 20, 10000, 22, 0, 15, 9000, 14));
+console.log(calcularPocentajes(10, 20, 10000, 22, 0, 15, 9000, 14));
 console.log(registrarCO(0));
 console.log(registrarCO2(21));
 console.log(registrarHC(10001));
 console.log(registrarO2(23));
-console.log(registrarHC(-10000));*/
+console.log(registrarHC(-10000));
