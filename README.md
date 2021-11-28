@@ -1,2 +1,2 @@
 # Web-Ciclo4
-Sprint numero 2, se agrego el src.js, para mas informacion mira el sprint.
+Desarrollo del sprint 3 backlog
