@@ -5,21 +5,10 @@ const app = express();
 
 app.set('port', process.env.PORT | 3000);
 app.use(express.urlencoded({ extended: false })); 
-app.use(express.json());   
+app.use(express.json());  
 
-const ranges_parameters = [
-  { "etiqueta": "Monoxido de carbono", "de": 0, "hasta": 10 },
-  { "etiqueta": "Dioxido de carbono", "de": 0, "hasta": 20 },
-  { "etiqueta": "Hidrocarburos", "de": 0, "hasta": 10000 },
-  { "etiqueta": "Oxigeno", "de": 0, "hasta": 22 }    
-];
-
-const limits = {
-  "Parametro CO en rango estandar": 10,
-  "Parametro CO2 en rango estandar":20,
-  "Parametro HC en rango estandar": 10000,
-  "Parametro O2 en rango estandar": 22
-};
+const ranges_parameters = require('./api/emission-measurement/ranges_parameters/ranges_parameters.json');
+const limits = require('./api/emission-measurement/limits/limits.json');
 
 app.get('/api/emission-measurement/ranges_parameters', (req, res) => { 
     res.status(200).json(ranges_parameters);
