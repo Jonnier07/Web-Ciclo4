@@ -113,13 +113,34 @@ const registrarO2 = async (value) => {
         }   
 }
 
+const nombreGasMin = async () => {   
+    try {
+        let response = await fetch('https://misiontic2022upb.vercel.app/api/emission-measurement/ranges-parameters');   
+        let rangos = await response.json();
+        let gasMenorValor = rangos[0].hasta;
+        let gasMenorEtiqueta = rangos[0].etiqueta;
+        console.log(gasMenorValor);
+        console.log(gasMenorEtiqueta);
+        rangos.forEach((element, indexElement) => {
+            if(gasMenorValor > element.hasta){
+                gasMenorValor = element.hasta;
+                gasMenorEtiqueta = element.etiqueta;
+            }
+        });
+        return gasMenorEtiqueta;
+    } catch (error) {
+        console.log(error);
+    } 
+} 
+
 module.exports.calcularPocentajes = calcularPocentajes;
 module.exports.registrarCO = registrarCO;
 module.exports.registrarCO2 = registrarCO2;
 module.exports.registrarHC = registrarHC;
 module.exports.registrarO2 = registrarO2;
+module.exports.nombreGasMin = nombreGasMin;
 
-// Language: javascript
+//Language: javascript
 calcularPocentajes(0, 15, 9000, 14).then(dataPorcentajes=>{console.log(dataPorcentajes);console.log(' -->lineaEjecución: 1')});
 registrarCO(-1).then(dataRegistroCO=>console.log(dataRegistroCO + ' -->lineaEjecución: 2'));
 registrarCO(0).then(dataRegistroCO=>console.log(dataRegistroCO + ' -->lineaEjecución: 3'));
@@ -131,3 +152,4 @@ registrarHC(8000).then(dataRegistroHC=>console.log(dataRegistroHC + ' -->lineaEj
 registrarCO(7).then(dataRegistroCO=>console.log(dataRegistroCO  + ' -->lineaEjecución: 9'));
 registrarCO2(18).then(dataRegistroCO2=>console.log(dataRegistroCO2 + ' -->lineaEjecución: 10'));
 registrarO2(21).then(dataRegistroO2=>console.log(dataRegistroO2 + ' -->lineaEjecución: 11'));
+nombreGasMin().then(dataNombreGasMin=>console.log(dataNombreGasMin + ' -->lineaEjecución: 12'));
